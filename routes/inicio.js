@@ -46,9 +46,15 @@ const callbackFuntion = (accessToken, refreshToken, profile, done) => {
 
 passport.use(new FacebookStrategy(fbOptions, callbackFuntion));
 
-app.get('/', passport.authenticate('facebook'), (req, resp) => {
 
-    resp.send('<h2> Hola mundo </h2>');
+app.get('/', (req, resp) => {
+
+    return resp.send('Todo bien');
+});
+
+app.get('/facebook', passport.authenticate('facebook'), (req, resp) => {
+
+    return resp.send('<h2> Hola mundo </h2>');
 
 });
 
