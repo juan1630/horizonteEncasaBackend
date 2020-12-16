@@ -12,7 +12,7 @@ const { CLIENT_ID, CLIENT_SECRET } = require('../config/confi');
 var fbOptions = {
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://localhost:3200/auth/facebook/callback",
+    callbackURL: "https://back-korizonte.herokuapp.com/auth/facebook/callback",
     // profileFields: ['emails']
     profileFields: ['id', 'displayName', 'photos', 'email']
 }
