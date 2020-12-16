@@ -49,10 +49,15 @@ passport.use(new FacebookStrategy(fbOptions, callbackFuntion));
 
 app.get('/', (req, resp) => {
 
-    return resp.send('Todo bien');
+    return resp.status(200)
+        .json({
+            ok: true,
+            message: 'Todo bien'
+        })
 });
 
 app.get('/facebook', passport.authenticate('facebook'), (req, resp) => {
+
 
     return resp.send('<h2> Hola mundo </h2>');
 
