@@ -71,25 +71,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook'), (req, resp
 });
 
 
-// const serveResp = (data, error, message, resp) => {
 
-//     if (data != null) {
-//         return resp.status(200)
-//             .json({
-//                 ok: true,
-//                 message,
-//                 data
-//             })
-//     } else if (error != null) {
-//         return resp.status(500)
-//             .json({
-//                 ok: false,
-//                 message,
-//                 error
-//             });
-//     }
-
-// }
 
 
 module.exports = app;
