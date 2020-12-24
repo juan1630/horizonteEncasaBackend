@@ -1,6 +1,8 @@
 const express = require('express');
 const modelUsers = require('../../models/users/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 
 const app = express();
 
@@ -28,6 +30,52 @@ app.post('/registro/usuario', (req, resp) => {
         .save()
         .then(data => serveResp(data, null, 'Se creo el nuevo usuario', resp))
         .catch(error => serveResp(null, error, 'No se pudo crear el uaurio', resp));
+
+
+});
+
+
+
+app.post('/login', (req, resp) => {
+
+
+    let body = req.body;
+
+    modelUsers
+        .findOne({ correo: body.correo })
+        .exec()
+        .then(data => {
+
+            if (!bcrypt.compareSync(body.password, data.password)) {
+                return resp.status(400)
+                    .json({
+                        ok: false,
+                        message: 'Las credenciales no coinicden',
+                    });
+            } else {
+
+
+                let token = jwt.sign({
+                    nombre: data.nombre,
+                    id: data._id,
+                    correo: data.correo,
+
+                }, process.env.SEED, { expiresIn: process.env.CADUCIDADTOKEN })
+
+                data.password = 'xD';
+
+
+                return resp.status(200)
+                    .json({
+                        ok: true,
+                        message: "Credenciales correctas",
+                        token
+                    });
+
+            }
+        })
+        .catch(error => serveResp(null, error, 'No se encontro el usuario', resp));
+
 
 
 });
