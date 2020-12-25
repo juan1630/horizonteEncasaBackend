@@ -69,6 +69,7 @@ app.post('/login', (req, resp) => {
                     .json({
                         ok: true,
                         message: "Credenciales correctas",
+                        user: data,
                         token
                     });
 
